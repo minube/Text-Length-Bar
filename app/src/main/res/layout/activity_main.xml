@@ -12,11 +12,11 @@
       />
 
   <minube.com.library.TextLengthBar
-      xmlns:Tlb="http://schemas.android.com/apk/res-auto"
+      xmlns:Tlb="http://schemas.android.com/apk/lib/com.minube.textlengthbar"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       Tlb:backgroundColor="@android:color/white"
-      Tlb:icon="@android:drawable/ic_dialog_info"
+      Tlb:barIcon="@android:drawable/ic_dialog_info"
       Tlb:text="Write some text"
       Tlb:textColor="@android:color/white"
       Tlb:textSize="16dp"/>
