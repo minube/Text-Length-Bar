@@ -4,10 +4,15 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by franciscoalfacemartin on 7/3/17.
@@ -25,6 +30,8 @@ public class TextLengthBar extends RelativeLayout {
     private ImageView imageView;
     private RelativeLayout rootView;
 
+    private List<TextLenthBarState> states;
+
     public TextLengthBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         setupAttrs(context, attrs);
@@ -41,8 +48,8 @@ public class TextLengthBar extends RelativeLayout {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Tlb);
         textSize = typedArray.getDimension(R.styleable.Tlb_barMessageTextSize, 16);
 
-        textColor =
-            typedArray.getColor(R.styleable.Tlb_barMessageTextColor, ContextCompat.getColor(context, android.R.color.white));
+        textColor = typedArray.getColor(R.styleable.Tlb_barMessageTextColor,
+            ContextCompat.getColor(context, android.R.color.white));
 
         backgroundColor = typedArray.getColor(R.styleable.Tlb_barBackgroundColor,
             ContextCompat.getColor(context, android.R.color.holo_blue_dark));
@@ -71,5 +78,30 @@ public class TextLengthBar extends RelativeLayout {
         message = (TextView) findViewById(R.id.text);
         imageView = (ImageView) findViewById(R.id.icon);
         rootView = (RelativeLayout) findViewById(R.id.root_view);
+    }
+
+    public void setStates(List<TextLenthBarState> states) {
+        this.states = states;
+        Collections.sort(this.states);
+    }
+
+    public void atachToEditText(EditText editText) {
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                for (TextLenthBarState state : states) {
+                    if (state.getCharsLimit() <= count) {
+                        break;
+                    }
+                }
+            }
+
+            @Override public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 }

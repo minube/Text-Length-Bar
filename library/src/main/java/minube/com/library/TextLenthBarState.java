@@ -1,10 +1,12 @@
 package minube.com.library;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by franciscoalfacemartin on 7/3/17.
  */
 
-public class TextLenthBarState {
+public class TextLenthBarState implements Comparable<TextLenthBarState> {
 
     protected int icon;
     protected String text;
@@ -16,6 +18,10 @@ public class TextLenthBarState {
         text = builder.text;
         charsLimit = builder.charsLimit;
         backgroundColor = builder.backgroundColor;
+    }
+
+    @Override public int compareTo(@NonNull TextLenthBarState o) {
+        return this.charsLimit < o.getCharsLimit() ? 0 : 1;
     }
 
     public static final class Builder {
