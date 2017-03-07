@@ -32,11 +32,13 @@ public class TextLengthBar extends RelativeLayout {
     public TextLengthBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         setupAttrs(context, attrs);
+        setupViews();
     }
 
     public TextLengthBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setupAttrs(context, attrs);
+        setupViews();
     }
 
     private void setupAttrs(Context context, AttributeSet attrs) {
@@ -54,5 +56,23 @@ public class TextLengthBar extends RelativeLayout {
         icon = typedArray.getDrawable(R.styleable.Tlb_icon);
 
         textFontPath = typedArray.getString(R.styleable.Tlb_textFontPath);
+    }
+
+    private void setupViews() {
+        loadViews();
+
+        message.setText(content);
+        message.setTextColor(textColor);
+        message.setTextSize(textSize);
+
+        rootView.setBackgroundColor(backgroundColor);
+
+        imageView.setImageDrawable(icon);
+    }
+
+    private void loadViews() {
+        message = (TextView) findViewById(R.id.text);
+        imageView = (ImageView) findViewById(R.id.icon);
+        rootView = (RelativeLayout) findViewById(R.id.root_view);
     }
 }
