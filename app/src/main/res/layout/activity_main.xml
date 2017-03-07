@@ -16,6 +16,7 @@
       xmlns:Tlb="http://schemas.android.com/apk/lib/com.minube.textlengthbar"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
       Tlb:backgroundColor="@android:color/white"
       Tlb:barIcon="@android:drawable/ic_dialog_info"
       Tlb:text="Write some text"
