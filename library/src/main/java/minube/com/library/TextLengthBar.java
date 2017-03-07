@@ -25,10 +25,6 @@ public class TextLengthBar extends RelativeLayout {
     private ImageView imageView;
     private RelativeLayout rootView;
 
-    public TextLengthBar(Context context) {
-        super(context);
-    }
-
     public TextLengthBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         setupAttrs(context, attrs);
