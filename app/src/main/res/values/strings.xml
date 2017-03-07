@@ -1,3 +1,4 @@
 <resources>
   <string name="app_name">Text Length Bar</string>
+  <string name="default_message_content">Write some text</string>
 </resources>

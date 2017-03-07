@@ -39,15 +39,15 @@ public class TextLengthBar extends RelativeLayout {
 
     private void setupAttrs(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Tlb);
-        textSize = typedArray.getDimension(R.styleable.Tlb_textSize, 16);
+        textSize = typedArray.getDimension(R.styleable.Tlb_barMessageTextSize, 16);
 
-        textColor = typedArray.getColor(R.styleable.Tlb_textColor,
-            ContextCompat.getColor(context, android.R.color.white));
+        textColor =
+            typedArray.getColor(R.styleable.Tlb_barMessageTextColor, ContextCompat.getColor(context, android.R.color.white));
 
-        backgroundColor = typedArray.getColor(R.styleable.Tlb_textColor,
-            ContextCompat.getColor(context, android.R.color.holo_red_light));
+        backgroundColor = typedArray.getColor(R.styleable.Tlb_barBackgroundColor,
+            ContextCompat.getColor(context, android.R.color.holo_blue_dark));
 
-        content = typedArray.getString(R.styleable.Tlb_text);
+        content = typedArray.getString(R.styleable.Tlb_barMessage);
 
         icon = typedArray.getDrawable(R.styleable.Tlb_barIcon);
 
@@ -58,13 +58,13 @@ public class TextLengthBar extends RelativeLayout {
         inflate(getContext(), R.layout.text_length_bar, this);
         loadViews();
 
+        imageView.setImageDrawable(icon);
+
         message.setText(content);
         message.setTextColor(textColor);
         message.setTextSize(textSize);
 
         rootView.setBackgroundColor(backgroundColor);
-
-        imageView.setImageDrawable(icon);
     }
 
     private void loadViews() {

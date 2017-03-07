@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,14 +14,13 @@
       />
 
   <minube.com.library.TextLengthBar
-      xmlns:Tlb="http://schemas.android.com/apk/lib/com.minube.textlengthbar"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
-      Tlb:backgroundColor="@android:color/white"
-      Tlb:barIcon="@android:drawable/ic_dialog_info"
-      Tlb:text="Write some text"
-      Tlb:textColor="@android:color/white"
-      Tlb:textSize="16dp"/>
+      app:barBackgroundColor="@android:color/holo_red_dark"
+      app:barIcon="@android:drawable/ic_dialog_info"
+      app:barMessage="@string/default_message_content"
+      app:barMessageTextColor="@android:color/white"
+      app:barMessageTextSize="16dp"/>
 
 </RelativeLayout>
