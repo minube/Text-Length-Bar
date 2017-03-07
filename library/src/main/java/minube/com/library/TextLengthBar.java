@@ -46,14 +46,14 @@ public class TextLengthBar extends RelativeLayout {
         textSize = typedArray.getDimension(R.styleable.Tlb_textSize, 16);
 
         textColor = typedArray.getColor(R.styleable.Tlb_textColor,
-            ContextCompat.getColor(context, android.R.color.holo_red_light));
+            ContextCompat.getColor(context, android.R.color.white));
 
         backgroundColor = typedArray.getColor(R.styleable.Tlb_textColor,
             ContextCompat.getColor(context, android.R.color.holo_red_light));
 
         content = typedArray.getString(R.styleable.Tlb_text);
 
-        icon = typedArray.getDrawable(R.styleable.Tlb_icon);
+        icon = typedArray.getDrawable(R.styleable.Tlb_barIcon);
 
         textFontPath = typedArray.getString(R.styleable.Tlb_textFontPath);
     }
