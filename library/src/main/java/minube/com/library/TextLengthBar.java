@@ -59,6 +59,7 @@ public class TextLengthBar extends RelativeLayout {
     }
 
     private void setupViews() {
+        inflate(getContext(), R.layout.text_length_bar, this);
         loadViews();
 
         message.setText(content);
