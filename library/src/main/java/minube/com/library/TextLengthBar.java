@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -83,6 +84,8 @@ public class TextLengthBar extends RelativeLayout {
         message.setText(content.replace("%d", String.valueOf(minChars - count)));
         message.setTextColor(textColor);
         message.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+        Typeface typeFace=Typeface.createFromAsset(getContext().getApplicationContext().getAssets(),textFontPath);
+        message.setTypeface(typeFace);
 
         rootView.setBackgroundColor(backgroundColor);
     }

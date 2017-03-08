@@ -23,6 +23,7 @@
       app:barMinChars="50"
       app:barMessage="@string/default_message_content"
       app:barMessageTextColor="@android:color/white"
+      app:textFontPath="fonts/Raleway-Medium.ttf"
       app:barMessageTextSize="14dp"/>
 
 </RelativeLayout>
