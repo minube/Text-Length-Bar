@@ -122,6 +122,11 @@ public class TextLengthBar extends RelativeLayout {
         rootView = (RelativeLayout) findViewById(R.id.root_view);
     }
 
+    public void setState(@NonNull TextLengthBarState state) {
+        states.clear();
+        states.add(state);
+    }
+
     public void setStates(@NonNull List<TextLengthBarState> states) {
         this.states = states;
         Collections.sort(this.states);
