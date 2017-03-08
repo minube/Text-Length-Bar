@@ -28,12 +28,12 @@ public class MainActivity extends AppCompatActivity {
 
         List<TextLengthBarState> states = new ArrayList<>();
 
-        states.add(new TextLengthBarState.Builder(50, "Add %d more characters for a great review.")
+        states.add(new TextLengthBarState.Builder(100, "Add %d more characters for a great review.")
             .backgroundColor(R.color.first_state_color)
             .icon(R.drawable.ic_first_step)
             .build());
 
-        states.add(new TextLengthBarState.Builder(100,"Help others by adding %d more characters.")
+        states.add(new TextLengthBarState.Builder(150,"Help others by adding %d more characters.")
             .backgroundColor(R.color.second_state_color)
             .icon(R.drawable.ic_second_state)
             .build());
