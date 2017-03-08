@@ -28,10 +28,10 @@ package minube.com.library;
 import android.support.annotation.NonNull;
 public class TextLengthBarState implements Comparable<TextLengthBarState> {
 
-    protected int icon;
+    protected int icon = -1;
+    protected int backgroundColor = -1;
     protected String text;
     protected int charsLimit;
-    protected int backgroundColor;
 
     private TextLengthBarState(Builder builder) {
         icon = builder.icon;

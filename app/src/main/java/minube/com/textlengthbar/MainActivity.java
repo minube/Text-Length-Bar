@@ -43,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
             .icon(R.drawable.ic_third_state)
             .build());
 
+        states.add(new TextLengthBarState.Builder(250,"Pepeeee")
+            .backgroundColor(R.color.third_state_color)
+            .build());
+
         return states;
     }
 }

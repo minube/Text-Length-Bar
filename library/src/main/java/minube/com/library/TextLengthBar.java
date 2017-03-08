@@ -24,25 +24,24 @@
 
 package minube.com.library;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.view.animation.OvershootInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class TextLengthBar extends RelativeLayout {
     private float textSize;
@@ -86,10 +85,16 @@ public class TextLengthBar extends RelativeLayout {
 
         content = typedArray.getString(R.styleable.Tlb_barMessage);
 
-        icon = typedArray.getDrawable(R.styleable.Tlb_barIcon);
+        String iconPathId = typedArray.getString(R.styleable.Tlb_barIcon);
+
+        if (!TextUtils.isEmpty(iconPathId)) {
+            int iconResourceId = context.getResources()
+                .getIdentifier(iconPathId.split(Pattern.quote("/"))[2], "drawable", context.getPackageName());
+
+            icon = (iconResourceId >= 0) ? typedArray.getDrawable(R.styleable.Tlb_barIcon) : null;
+        }
 
         textFontPath = typedArray.getString(R.styleable.Tlb_textFontPath);
-
     }
 
     private void setupViews() {
@@ -100,16 +105,28 @@ public class TextLengthBar extends RelativeLayout {
     }
 
     private void fillViewsWithContent(int count, int minChars) {
-        imageView.setImageDrawable(icon);
+        manageIconState();
 
         message.setText(content.replace("%d", String.valueOf(minChars - count)));
         message.setTextColor(textColor);
         message.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
 
-        Typeface typeFace = Typeface.createFromAsset(getContext().getApplicationContext().getAssets(), textFontPath);
-        message.setTypeface(typeFace);
+        if (!TextUtils.isEmpty(textFontPath)) {
+            Typeface typeFace =
+                Typeface.createFromAsset(getContext().getApplicationContext().getAssets(), textFontPath);
+            message.setTypeface(typeFace);
+        }
 
         rootView.setBackgroundColor(backgroundColor);
+    }
+
+    private void manageIconState() {
+        if (icon != null) {
+            imageView.setVisibility(VISIBLE);
+            imageView.setImageDrawable(icon);
+        } else {
+            imageView.setVisibility(GONE);
+        }
     }
 
     private void loadViews() {
@@ -151,13 +168,16 @@ public class TextLengthBar extends RelativeLayout {
             int minCharsState = currentState.getCharsLimit();
             message.setText(currentState.getText().toString().replace("%d", String.valueOf(minCharsState - count)));
 
-            ObjectAnimator objectAnimator =
-                ObjectAnimator.ofInt(rootView, "background", Color.BLACK, currentState.backgroundColor);
-            objectAnimator.setDuration(1500).setInterpolator(new OvershootInterpolator(2.f));
-            objectAnimator.start();
+            if (currentState.getBackgroundColor() >= 0) {
+                rootView.setBackgroundColor(ContextCompat.getColor(getContext(), currentState.getBackgroundColor()));
+            }
 
-            rootView.setBackgroundColor(ContextCompat.getColor(getContext(), currentState.getBackgroundColor()));
-            imageView.setImageDrawable(ContextCompat.getDrawable(getContext(), currentState.getIcon()));
+            if (currentState.getIcon() >= 0) {
+                imageView.setVisibility(VISIBLE);
+                imageView.setImageDrawable(ContextCompat.getDrawable(getContext(), currentState.getIcon()));
+            } else {
+                imageView.setVisibility(GONE);
+            }
         }
     }
 

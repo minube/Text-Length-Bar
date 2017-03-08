@@ -5,7 +5,7 @@
     <attr name="barBackgroundColor" format="color"/>
     <attr name="barMessageTextSize" format="dimension"/>
     <attr name="barMinChars" format="integer"/>
-    <attr name="barIcon" format="integer"/>
+    <attr name="barIcon" format="reference"/>
     <attr name="barMessage" format="string"/>
     <attr name="textFontPath" format="string"/>
   </declare-styleable>

@@ -19,7 +19,6 @@
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
       app:barBackgroundColor="@android:color/holo_red_dark"
-      app:barIcon="@drawable/ic_min_chars"
       app:barMinChars="50"
       app:barMessage="@string/default_message_content"
       app:barMessageTextColor="@android:color/white"
