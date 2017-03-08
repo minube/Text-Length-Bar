@@ -1,13 +1,17 @@
 package minube.com.library;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.TypedValue;
+import android.view.animation.OvershootInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -78,7 +82,7 @@ public class TextLengthBar extends RelativeLayout {
 
         message.setText(content.replace("%d", String.valueOf(minChars - count)));
         message.setTextColor(textColor);
-        message.setTextSize(textSize);
+        message.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
 
         rootView.setBackgroundColor(backgroundColor);
     }
@@ -116,6 +120,12 @@ public class TextLengthBar extends RelativeLayout {
         if (currentState != null) {
             int minCharsState = currentState.getCharsLimit();
             message.setText(currentState.getText().toString().replace("%d", String.valueOf(minCharsState - count)));
+
+            ObjectAnimator objectAnimator =
+                ObjectAnimator.ofInt(rootView, "background", Color.BLACK, currentState.backgroundColor);
+            objectAnimator.setDuration(1500).setInterpolator(new OvershootInterpolator(2.f));
+            objectAnimator.start();
+
             rootView.setBackgroundColor(ContextCompat.getColor(getContext(), currentState.getBackgroundColor()));
             imageView.setImageDrawable(ContextCompat.getDrawable(getContext(), currentState.getIcon()));
         }
