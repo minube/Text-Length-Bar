@@ -44,10 +44,6 @@ import android.widget.TextView;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by franciscoalfacemartin on 7/3/17.
- */
-
 public class TextLengthBar extends RelativeLayout {
     private float textSize;
     private int textColor;
