@@ -28,19 +28,19 @@ public class MainActivity extends AppCompatActivity {
 
         List<TextLengthBarState> states = new ArrayList<>();
 
-        states.add(new TextLengthBarState.Builder(25, "Poor experience, try to write more content")
-            .backgroundColor(android.R.color.holo_red_light)
-            .icon(android.R.drawable.ic_input_add)
+        states.add(new TextLengthBarState.Builder(50, "Add %d more characters for a great review")
+            .backgroundColor(R.color.first_state_color)
+            .icon(R.drawable.ic_first_step)
             .build());
 
-        states.add(new TextLengthBarState.Builder(50, "Medium experience, you can do it better")
-            .backgroundColor(android.R.color.holo_blue_bright)
-            .icon(android.R.drawable.ic_dialog_email)
+        states.add(new TextLengthBarState.Builder(100,"Help others by adding %d more characters")
+            .backgroundColor(R.color.second_state_color)
+            .icon(R.drawable.ic_second_state)
             .build());
 
-        states.add(new TextLengthBarState.Builder(75,"Cool experience, add more text to help others travelers")
-            .backgroundColor(android.R.color.holo_green_light)
-            .icon(android.R.drawable.ic_lock_idle_lock)
+        states.add(new TextLengthBarState.Builder(200,"You're doing great")
+            .backgroundColor(R.color.third_state_color)
+            .icon(R.drawable.ic_third_state)
             .build());
 
         return states;
