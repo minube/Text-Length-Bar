@@ -67,7 +67,7 @@ Add TextLengthBar to your activity/fragment layout resource file with your empty
 ```
 textLengthBar.setBackgroundColor(ContextCompat.getColor(this,android.R.color.black));
 textLengthBar.setTextSize(20);
-textLengthBar.setText("Monkey test");
+textLengthBar.setText("Message content");
 textLengthBar.setTypeface("fonts/Raleway-Medium.ttf");
 textLengthBar.setTextColor(ContextCompat.getColor(this,android.R.color.holo_red_dark);
 ```
