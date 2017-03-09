@@ -33,12 +33,12 @@ public class MainActivity extends AppCompatActivity {
             .icon(R.drawable.ic_first_step)
             .build());
 
-        states.add(new TextLengthBarState.Builder(150,"Help others by adding %d more characters.")
+        states.add(new TextLengthBarState.Builder(150, "Help others by adding %d more characters.")
             .backgroundColor(R.color.second_state_color)
             .icon(R.drawable.ic_second_state)
             .build());
 
-        states.add(new TextLengthBarState.Builder(200,"You're doing great.")
+        states.add(new TextLengthBarState.Builder(200, "You're doing great.")
             .backgroundColor(R.color.third_state_color)
             .icon(R.drawable.ic_third_state)
             .build());
