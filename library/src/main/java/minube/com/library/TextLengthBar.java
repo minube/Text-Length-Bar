@@ -73,7 +73,7 @@ public class TextLengthBar extends RelativeLayout {
 
     private void setupAttrs(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Tlb);
-        textSize = typedArray.getDimension(R.styleable.Tlb_barMessageTextSize, 12);
+        textSize = typedArray.getDimension(R.styleable.Tlb_barMessageTextSize, 18);
 
         textColor = typedArray.getColor(R.styleable.Tlb_barMessageTextColor,
             ContextCompat.getColor(context, android.R.color.white));
@@ -83,7 +83,7 @@ public class TextLengthBar extends RelativeLayout {
 
         minChars = typedArray.getInt(R.styleable.Tlb_barMinChars, 1);
 
-        content = typedArray.getString(R.styleable.Tlb_barMessage);
+        content = String.valueOf(typedArray.getString(R.styleable.Tlb_barMessage));
 
         String iconPathId = typedArray.getString(R.styleable.Tlb_barIcon);
 
@@ -108,16 +108,14 @@ public class TextLengthBar extends RelativeLayout {
         manageIconState();
 
         message.setText(content.replace("%d", String.valueOf(minChars - count)));
-        message.setTextColor(textColor);
-        message.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
 
-        if (!TextUtils.isEmpty(textFontPath)) {
-            Typeface typeFace =
-                Typeface.createFromAsset(getContext().getApplicationContext().getAssets(), textFontPath);
-            message.setTypeface(typeFace);
-        }
+        setTextColor(textColor);
 
-        rootView.setBackgroundColor(backgroundColor);
+        setTextSize(textSize);
+
+        setTypeface(textFontPath);
+
+        setBackgroundColor(backgroundColor);
     }
 
     private void manageIconState() {
@@ -135,34 +133,6 @@ public class TextLengthBar extends RelativeLayout {
         rootView = (RelativeLayout) findViewById(R.id.root_view);
     }
 
-    public void setState(@NonNull TextLengthBarState state) {
-        states.clear();
-        states.add(state);
-    }
-
-    public void setStates(@NonNull List<TextLengthBarState> states) {
-        this.states = states;
-        Collections.sort(this.states);
-    }
-
-    public void attachToEditText(final EditText editText) {
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-                int textLength = editText.getText().length();
-                currentState = getCurrentState(textLength);
-                updateContentWithState(textLength);
-            }
-
-            @Override public void afterTextChanged(Editable s) {
-
-            }
-        });
-    }
-
     private void updateContentWithState(int count) {
         if (currentState != null) {
             int minCharsState = currentState.getCharsLimit();
@@ -172,7 +142,7 @@ public class TextLengthBar extends RelativeLayout {
                 rootView.setBackgroundColor(ContextCompat.getColor(getContext(), currentState.getBackgroundColor()));
             }
 
-            if (currentState.getIcon() >= 0) {
+            if (currentState.getIcon() > 0) {
                 imageView.setVisibility(VISIBLE);
                 imageView.setImageDrawable(ContextCompat.getDrawable(getContext(), currentState.getIcon()));
             } else {
@@ -200,4 +170,55 @@ public class TextLengthBar extends RelativeLayout {
         fillViewsWithContent(count, minChars);
         return null;
     }
+
+    //Public Api methods
+
+    public void attachToEditText(final EditText editText) {
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                int textLength = editText.getText().length();
+                currentState = getCurrentState(textLength);
+                updateContentWithState(textLength);
+            }
+
+            @Override public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    public void setTypeface(String textFontPath) {
+        if (!TextUtils.isEmpty(textFontPath)) {
+            Typeface typeFace =
+                Typeface.createFromAsset(getContext().getApplicationContext().getAssets(), textFontPath);
+            message.setTypeface(typeFace);
+        }
+    }
+
+    public void setText(String content) {
+        message.setText(content);
+    }
+
+    public void setTextColor(int textColor) {
+        message.setTextColor(textColor);
+    }
+
+    public void setState(@NonNull TextLengthBarState state) {
+        currentState = state;
+        updateContentWithState(0);
+    }
+
+    public void setStates(@NonNull List<TextLengthBarState> states) {
+        this.states = states;
+        Collections.sort(this.states);
+    }
+
+    public void setTextSize(float size) {
+        message.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
+    }
+
 }
