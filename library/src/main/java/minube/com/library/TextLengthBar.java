@@ -169,7 +169,7 @@ public class TextLengthBar extends RelativeLayout {
         return null;
     }
 
-    //Public Api methods
+    //region Public Api Methods
 
     public void attachToEditText(final EditText editText) {
         editText.addTextChangedListener(new TextWatcher() {
@@ -227,4 +227,6 @@ public class TextLengthBar extends RelativeLayout {
     public void setTextSize(float size) {
         message.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
     }
+
+    //endregion
 }
