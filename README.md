@@ -132,7 +132,7 @@ textLengthBar.attachToEditText(editText);
 ```
 
 ### Notes
-If you want to push up TextLengthBar with the keyboard dont forget add the following line into your AndroidManifest file within your Activity declaration:
+If you want to push up TextLengthBar with the keyboard don't forget add the following line into your AndroidManifest file within your Activity declaration:
 
 ```
 android:windowSoftInputMode="stateVisible|adjustResize"
