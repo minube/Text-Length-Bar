@@ -2,7 +2,7 @@
 
 ![Screenshot](art/minube.png)
 
-TextLengthBar is an android library for manage EditText input count state.
+TextLengthBar is an android library to manage EditText input count state.
 
 ![](art/text_length_bar.gif)
 
@@ -132,7 +132,7 @@ textLengthBar.attachToEditText(editText);
 ```
 
 ### Notes
-If you want to push up TextLengthBar with the keyboard don't forget add the following line into your AndroidManifest file within your Activity declaration:
+If you want to push up TextLengthBar with the keyboard don't forget to add the following line into your AndroidManifest file within your Activity declaration:
 
 ```
 android:windowSoftInputMode="stateVisible|adjustResize"
