@@ -180,7 +180,7 @@ public class TextLengthBar extends RelativeLayout {
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
                 int textLength = editText.getText().length();
 
-                if (textLength > minChars) {
+                if (textLength >= minChars) {
                     currentState = getCurrentState(textLength);
                     updateContentWithState(textLength);
                 } else {
