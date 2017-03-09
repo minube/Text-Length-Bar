@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="8dp"
-    tools:background="@android:color/background_dark"
-    android:id="@+id/background"
+    android:id="@+id/root_view"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:padding="8dp"
+    tools:background="@android:color/background_dark">
 
 
   <ImageView
-      android:layout_centerVertical="true"
+      android:visibility="visible"
       android:id="@+id/icon"
-      tools:src="@android:drawable/ic_input_add"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      tools:src="@android:drawable/ic_input_add"/>
 
   <TextView
-      android:layout_marginLeft="16dp"
-      android:layout_centerVertical="true"
-      android:layout_toRightOf="@+id/icon"
-      tools:textColor="@android:color/white"
-      tools:text="Esto es una barra que cuenta caracteres"
+      android:id="@+id/text"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      android:layout_marginLeft="16dp"
+      android:layout_toRightOf="@+id/icon"
+      tools:text="This is a design enviroment debug message"
+      tools:textColor="@android:color/white"
+      tools:textSize="12dp"/>
 
 </RelativeLayout>

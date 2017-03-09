@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <declare-styleable name="Tlb">
-    <attr name="textColor" format="color"/>
-    <attr name="backgroundColor" format="color"/>
-    <attr name="textSize" format="dimension"/>
-    <attr name="icon" format="integer"/>
-    <attr name="text" format="string"/>
+    <attr name="barMessageTextColor" format="color"/>
+    <attr name="barBackgroundColor" format="color"/>
+    <attr name="barMessageTextSize" format="dimension"/>
+    <attr name="barMinChars" format="integer"/>
+    <attr name="barIcon" format="reference"/>
+    <attr name="barMessage" format="string"/>
     <attr name="textFontPath" format="string"/>
   </declare-styleable>
 </resources>

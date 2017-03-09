@@ -1,3 +1,4 @@
 <resources>
   <string name="app_name">library</string>
+  <string name="empty_text_message">Write something and see how the bar status changes.</string>
 </resources>
