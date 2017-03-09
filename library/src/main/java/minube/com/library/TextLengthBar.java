@@ -153,7 +153,7 @@ public class TextLengthBar extends RelativeLayout {
     private TextLengthBarState getCurrentState(int count) {
         for (int i = 0; states != null && i < states.size(); i++) {
             if (i == 0) {
-                if (count > minChars && count < states.get(0).getCharsLimit()) {
+                if (count >= minChars && count < states.get(0).getCharsLimit()) {
                     return states.get(0);
                 }
             } else if (i > 0 && i < (states.size() - 1)) {
