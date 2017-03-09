@@ -100,8 +100,13 @@ public class TextLengthBar extends RelativeLayout {
     private void setupViews() {
         inflate(getContext(), R.layout.text_length_bar, this);
         loadViews();
-
         fillViewsWithContent(0, minChars);
+    }
+
+    private void loadViews() {
+        message = (TextView) findViewById(R.id.text);
+        imageView = (ImageView) findViewById(R.id.icon);
+        rootView = (RelativeLayout) findViewById(R.id.root_view);
     }
 
     private void fillViewsWithContent(int count, int minChars) {
@@ -115,7 +120,7 @@ public class TextLengthBar extends RelativeLayout {
 
         setTypeface(textFontPath);
 
-        setBackgroundColor(backgroundColor);
+        rootView.setBackgroundColor(backgroundColor);
     }
 
     private void manageIconState() {
@@ -125,12 +130,6 @@ public class TextLengthBar extends RelativeLayout {
         } else {
             imageView.setVisibility(GONE);
         }
-    }
-
-    private void loadViews() {
-        message = (TextView) findViewById(R.id.text);
-        imageView = (ImageView) findViewById(R.id.icon);
-        rootView = (RelativeLayout) findViewById(R.id.root_view);
     }
 
     private void updateContentWithState(int count) {
@@ -167,7 +166,6 @@ public class TextLengthBar extends RelativeLayout {
                 }
             }
         }
-        fillViewsWithContent(count, minChars);
         return null;
     }
 
@@ -181,8 +179,13 @@ public class TextLengthBar extends RelativeLayout {
 
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
                 int textLength = editText.getText().length();
-                currentState = getCurrentState(textLength);
-                updateContentWithState(textLength);
+
+                if (textLength > minChars) {
+                    currentState = getCurrentState(textLength);
+                    updateContentWithState(textLength);
+                } else {
+                    fillViewsWithContent(textLength, minChars);
+                }
             }
 
             @Override public void afterTextChanged(Editable s) {
@@ -207,6 +210,10 @@ public class TextLengthBar extends RelativeLayout {
         message.setTextColor(textColor);
     }
 
+    public void setBackgroundColor(int backgroundColor) {
+        rootView.setBackgroundColor(backgroundColor);
+    }
+
     public void setState(@NonNull TextLengthBarState state) {
         currentState = state;
         updateContentWithState(0);
@@ -220,5 +227,4 @@ public class TextLengthBar extends RelativeLayout {
     public void setTextSize(float size) {
         message.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
     }
-
 }
