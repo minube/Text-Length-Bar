@@ -140,3 +140,11 @@ Furthermore you need to add the following line to TextLengthBar xml declaration:
 ```
 android:layout_alignParentBottom="true"
 ```
+
+### Gradle
+
+```
+dependencies {
+	        compile 'com.github.minube:Text-Length-Bar:beta-1.0'
+	}
+```
