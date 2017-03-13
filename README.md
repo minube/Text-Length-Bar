@@ -145,6 +145,6 @@ android:layout_alignParentBottom="true"
 
 ```
 dependencies {
-	        compile 'com.github.minube:Text-Length-Bar:beta-1.0'
-	}
+  compile 'com.github.minube:Text-Length-Bar:beta-1.0'
+}
 ```
