@@ -1,4 +1,5 @@
 # TextLengthBar
+[![](https://www.jitpack.io/v/minube/Text-Length-Bar.svg)](https://www.jitpack.io/#minube/Text-Length-Bar)
 
 TextLengthBar is an android library to manage EditText input count state.
 
