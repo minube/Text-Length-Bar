@@ -149,3 +149,13 @@ dependencies {
   compile 'com.github.minube:Text-Length-Bar:beta-1.0'
 }
 ```
+
+### Maven
+
+```
+<dependency>
+    <groupId>com.github.minube</groupId>
+    <artifactId>Text-Length-Bar</artifactId>
+    <version>beta-1.0</version>
+</dependency>
+```
