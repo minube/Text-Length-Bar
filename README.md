@@ -1,7 +1,5 @@
 # TextLengthBar
 
-![Screenshot](art/minube.png)
-
 TextLengthBar is an android library to manage EditText input count state.
 
 ![](art/text_length_bar.gif)
