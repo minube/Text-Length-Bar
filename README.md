@@ -5,7 +5,7 @@ TextLengthBar is an android library to manage EditText input count state.
 
 ![](art/text_length_bar.gif)
 
-# Features
+### Features
 
   - Set TextLengthBar attributes on xml
   - Set TextLengthBar attributes programatically
@@ -75,6 +75,17 @@ textLengthBar.setTextColor(ContextCompat.getColor(this,android.R.color.holo_red_
    - Configure your own states
    - Add states to TextLengthBar
    - Attach your EdtiText to TextLengthBar
+
+The state entity:
+
+```
+new TextLengthBarState.Builder(CHARS_TO_NEXT_STATE, CURRENT_STATE_MESSAGE)
+            .backgroundColor(BACKGROUND_COLOR_RESOURCE)
+            .icon(ICON_DRAWABLE_RESOURCE)
+            .build()
+```
+
+Sample:
 
 
 ```
@@ -159,3 +170,9 @@ dependencies {
     <version>beta-1.0</version>
 </dependency>
 ```
+
+### Coming soon
+
+ProgressTextLengthBar
+
+![](art/progress_text_length_bar.png)
