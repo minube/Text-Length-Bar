@@ -144,3 +144,4 @@ modules.xml
 *.ipr
 
 # End of https://www.gitignore.io/api/android,intellij,intellij+iml
+.idea/sonarlint/
