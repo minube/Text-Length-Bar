@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <EditText
+      android:id="@+id/edit_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      />
+
+  <minube.com.library.ProgressTextLengthBar
+      android:id="@+id/progress_text_length_bar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      app:barBackgroundColor="@android:color/secondary_text_dark"
+      app:barIcon="@drawable/ic_progress_empty_state"
+      app:barMinChars="50"
+      app:barMessage="@string/default_message_content"
+      app:barMessageTextColor="@android:color/holo_red_light"
+      app:textFontPath="fonts/Raleway-Medium.ttf"
+      app:barMessageTextSize="14dp"/>
+
+</RelativeLayout>
