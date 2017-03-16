@@ -45,20 +45,20 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class TextLengthBar extends RelativeLayout {
-    private float textSize;
-    private int textColor;
-    private int backgroundColor;
-    private String content;
-    private Drawable icon;
-    private String textFontPath;
+    protected float textSize;
+    protected int textColor;
+    protected int backgroundColor;
+    protected String content;
+    protected Drawable icon;
+    protected String textFontPath;
 
-    private TextView message;
-    private ImageView imageView;
-    private RelativeLayout rootView;
+    protected TextView message;
+    protected ImageView imageView;
+    protected RelativeLayout rootView;
 
-    private List<TextLengthBarState> states;
-    private TextLengthBarState currentState;
-    private int minChars;
+    protected List<TextLengthBarState> states;
+    protected TextLengthBarState currentState;
+    protected int minChars;
 
     public TextLengthBar(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -72,7 +72,7 @@ public class TextLengthBar extends RelativeLayout {
         setupViews();
     }
 
-    private void setupAttrs(Context context, AttributeSet attrs) {
+    protected void setupAttrs(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Tlb);
         textSize = typedArray.getDimension(R.styleable.Tlb_barMessageTextSize, 18);
 
@@ -98,19 +98,19 @@ public class TextLengthBar extends RelativeLayout {
         textFontPath = typedArray.getString(R.styleable.Tlb_textFontPath);
     }
 
-    private void setupViews() {
+    protected void setupViews() {
         inflate(getContext(), R.layout.text_length_bar, this);
         loadViews();
         fillViewsWithContent(0, minChars);
     }
 
-    private void loadViews() {
+    protected void loadViews() {
         message = (TextView) findViewById(R.id.text);
         imageView = (ImageView) findViewById(R.id.icon);
         rootView = (RelativeLayout) findViewById(R.id.root_view);
     }
 
-    private void fillViewsWithContent(int count, int minChars) {
+    protected void fillViewsWithContent(int count, int minChars) {
         manageIconState();
 
         message.setText(content.replace("%d", String.valueOf(minChars - count)));
@@ -133,7 +133,7 @@ public class TextLengthBar extends RelativeLayout {
         }
     }
 
-    private void updateContentWithState(int count) {
+    protected void updateContentWithState(int count) {
         if (currentState != null) {
             int minCharsState = currentState.getCharsLimit();
             message.setText(currentState.getText().toString().replace("%d", String.valueOf(minCharsState - count)));
@@ -147,6 +147,10 @@ public class TextLengthBar extends RelativeLayout {
                 imageView.setImageDrawable(ContextCompat.getDrawable(getContext(), currentState.getIcon()));
             } else {
                 imageView.setVisibility(GONE);
+            }
+
+            if (currentState.getTextColor() > 0) {
+                message.setTextColor(ContextCompat.getColor(getContext(), currentState.getTextColor()));
             }
         }
     }

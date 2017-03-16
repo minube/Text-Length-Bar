@@ -1,4 +1,3 @@
-
 /*
     MIT License
 
@@ -26,10 +25,13 @@
 package minube.com.library;
 
 import android.support.annotation.NonNull;
+
 public class TextLengthBarState implements Comparable<TextLengthBarState> {
 
     protected int icon = -1;
     protected int backgroundColor = -1;
+    protected int progressBarColor = -1;
+    protected int textColor = -1;
     protected String text;
     protected int charsLimit;
 
@@ -38,6 +40,8 @@ public class TextLengthBarState implements Comparable<TextLengthBarState> {
         text = builder.text;
         charsLimit = builder.charsLimit;
         backgroundColor = builder.backgroundColor;
+        textColor = builder.textColor;
+        progressBarColor = builder.progressColor;
     }
 
     @Override public int compareTo(@NonNull TextLengthBarState o) {
@@ -49,6 +53,8 @@ public class TextLengthBarState implements Comparable<TextLengthBarState> {
         private String text;
         private int charsLimit;
         private int backgroundColor;
+        private int progressColor;
+        private int textColor;
 
         public Builder(int charsLimit, String text) {
             this.charsLimit = charsLimit;
@@ -62,6 +68,16 @@ public class TextLengthBarState implements Comparable<TextLengthBarState> {
 
         public Builder backgroundColor(int val) {
             backgroundColor = val;
+            return this;
+        }
+
+        public Builder progressColor(int val) {
+            progressColor = val;
+            return this;
+        }
+
+        public Builder textColor(int val) {
+            textColor = val;
             return this;
         }
 
@@ -84,5 +100,13 @@ public class TextLengthBarState implements Comparable<TextLengthBarState> {
 
     public int getBackgroundColor() {
         return backgroundColor;
+    }
+
+    public int getProgressBarColor() {
+        return progressBarColor;
+    }
+
+    public int getTextColor() {
+        return progressBarColor;
     }
 }
