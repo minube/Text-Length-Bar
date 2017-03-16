@@ -24,6 +24,7 @@
 
 package minube.com.library;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
@@ -32,6 +33,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ProgressBar;
 
 public class ProgressTextLengthBar extends TextLengthBar {
@@ -59,20 +61,23 @@ public class ProgressTextLengthBar extends TextLengthBar {
 
     @Override protected void fillViewsWithContent(int count, int minChars) {
         super.fillViewsWithContent(count, minChars);
-        progressBar.setProgress((int)calculateProgress(count, minChars));
+        setProgressAnimate((int) calculateProgress(count, minChars));
+        if (progressBarColor > 0) {
+            setProgressBarColor(ContextCompat.getColor(getContext(), progressBarColor));
+        }
     }
 
     @Override protected void updateContentWithState(int count) {
         super.updateContentWithState(count);
         if (currentState != null) {
             setProgressBarColor(currentState.getProgressBarColor());
-            progressBar.setProgress((int)calculateProgress(count, currentState.getCharsLimit()));
+            setProgressAnimate((int) calculateProgress(count, currentState.getCharsLimit()));
         }
     }
 
     private void setProgressBarColor(int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            progressBar.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(),color)));
+            progressBar.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), color)));
         } else {
             LayerDrawable drawable = (LayerDrawable) progressBar.getProgressDrawable();
             Drawable background = new ColorDrawable(color);
@@ -82,6 +87,13 @@ public class ProgressTextLengthBar extends TextLengthBar {
     }
 
     private float calculateProgress(int count, int total) {
-        return ((float)count / total) * 100;
+        return ((float) count / total) * 100;
+    }
+
+    private void setProgressAnimate(int progress) {
+        ObjectAnimator animation = ObjectAnimator.ofInt(progressBar, "progress", progressBar.getProgress(), progress);
+        animation.setDuration(500);
+        animation.setInterpolator(new DecelerateInterpolator());
+        animation.start();
     }
 }

@@ -59,6 +59,7 @@ public class TextLengthBar extends RelativeLayout {
     protected List<TextLengthBarState> states;
     protected TextLengthBarState currentState;
     protected int minChars;
+    protected int progressBarColor;
 
     public TextLengthBar(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -96,6 +97,9 @@ public class TextLengthBar extends RelativeLayout {
         }
 
         textFontPath = typedArray.getString(R.styleable.Tlb_textFontPath);
+
+        progressBarColor = typedArray.getColor(R.styleable.Tlb_barProgressColor,
+            ContextCompat.getColor(context, android.R.color.holo_blue_dark));
     }
 
     protected void setupViews() {

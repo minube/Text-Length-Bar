@@ -3,6 +3,7 @@
   <declare-styleable name="Tlb">
     <attr name="barMessageTextColor" format="color"/>
     <attr name="barBackgroundColor" format="color"/>
+    <attr name="barProgressColor" format="color"/>
     <attr name="barMessageTextSize" format="dimension"/>
     <attr name="barMinChars" format="integer"/>
     <attr name="barIcon" format="reference"/>
