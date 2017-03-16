@@ -3,27 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="bottom"
     >
 
   <ProgressBar
       android:id="@+id/progress_bar"
       android:layout_width="match_parent"
-      android:layout_height="120dp"
-      android:layout_above="@+id/root_view"
-      android:layout_marginBottom="1dp"
-      android:progress="20"
-      android:backgroundTint="@android:color/holo_blue_light"
+      android:layout_height="4dp"
       style="?android:attr/progressBarStyleHorizontal"/>
 
   <RelativeLayout
       android:id="@+id/root_view"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_gravity="bottom"
+      android:layout_below="@+id/progress_bar"
       android:padding="8dp"
       tools:background="@android:color/background_dark">
-
 
     <ImageView
         android:id="@+id/icon"
@@ -44,4 +38,5 @@
         tools:textColor="@android:color/white"
         tools:textSize="12dp"/>
   </RelativeLayout>
+
 </RelativeLayout>

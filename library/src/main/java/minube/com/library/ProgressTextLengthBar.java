@@ -72,16 +72,16 @@ public class ProgressTextLengthBar extends TextLengthBar {
 
     private void setProgressBarColor(int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            progressBar.setProgressBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(),color)));
+            progressBar.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(),color)));
         } else {
             LayerDrawable drawable = (LayerDrawable) progressBar.getProgressDrawable();
             Drawable background = new ColorDrawable(color);
-            drawable.setDrawableByLayerId(android.R.id.background, background);
+            drawable.setDrawableByLayerId(android.R.id.progress, background);
             progressBar.setProgressDrawable(drawable);
         }
     }
 
     private float calculateProgress(int count, int total) {
-        return 60;// (count / total) * 100;
+        return ((float)count / total) * 100;
     }
 }
