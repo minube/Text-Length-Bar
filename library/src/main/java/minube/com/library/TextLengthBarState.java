@@ -45,7 +45,14 @@ public class TextLengthBarState implements Comparable<TextLengthBarState> {
     }
 
     @Override public int compareTo(@NonNull TextLengthBarState o) {
-        return this.charsLimit < o.getCharsLimit() ? 0 : 1;
+
+        if (this.charsLimit < o.getCharsLimit()) {
+            return -1;
+        } else if (this.charsLimit > o.getCharsLimit()) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     public static final class Builder {
