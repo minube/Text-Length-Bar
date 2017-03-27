@@ -137,7 +137,7 @@ public class TextLengthBar extends RelativeLayout {
         }
     }
 
-    protected void updateContentWithState(int count) {
+    protected void updateContentWithState(int count, boolean isNewState) {
         if (currentState != null) {
             int minCharsState = currentState.getCharsLimit();
             message.setText(currentState.getText().toString().replace("%d", String.valueOf(minCharsState - count)));
@@ -190,8 +190,10 @@ public class TextLengthBar extends RelativeLayout {
                 int textLength = editText.getText().length();
 
                 if (textLength >= minChars) {
-                    currentState = getCurrentState(textLength);
-                    updateContentWithState(textLength);
+                    TextLengthBarState newState = getCurrentState(textLength);
+                    boolean isNewState = newState.equals(currentState);
+                    currentState = newState;
+                    updateContentWithState(textLength, isNewState);
                 } else {
                     fillViewsWithContent(textLength, minChars);
                 }
@@ -226,7 +228,7 @@ public class TextLengthBar extends RelativeLayout {
     public void setState(@NonNull TextLengthBarState state) {
         states = new ArrayList<>();
         states.add(state);
-        updateContentWithState(0);
+        updateContentWithState(0, false);
     }
 
     public void setStates(@NonNull List<TextLengthBarState> states) {

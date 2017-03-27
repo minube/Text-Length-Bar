@@ -17,7 +17,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
-      app:barProgressColor="@color/first_state_color"
+      app:barProgressColor="@android:color/holo_red_light"
       app:barBackgroundColor="@android:color/secondary_text_dark"
       app:barIcon="@drawable/ic_progress_empty_state"
       app:barMinChars="50"

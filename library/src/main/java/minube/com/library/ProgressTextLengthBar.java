@@ -67,9 +67,12 @@ public class ProgressTextLengthBar extends TextLengthBar {
         }
     }
 
-    @Override protected void updateContentWithState(int count) {
-        super.updateContentWithState(count);
+    @Override protected void updateContentWithState(int count, boolean isNewState) {
+        super.updateContentWithState(count, isNewState);
         if (currentState != null) {
+            if(isNewState) {
+                progressBar.setProgress(0);
+            }
             setProgressBarColor(currentState.getProgressBarColor());
             setProgressAnimate((int) calculateProgress(calculateRealCount(count),
                 currentState.getCharsLimit() - calculateStateTotal()));
