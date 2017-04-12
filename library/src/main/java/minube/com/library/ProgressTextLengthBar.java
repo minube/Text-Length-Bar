@@ -51,7 +51,7 @@ public class ProgressTextLengthBar extends TextLengthBar {
     @Override protected void setupViews() {
         inflate(getContext(), R.layout.progress_text_length_bar, this);
         loadViews();
-        fillViewsWithContent(0, minChars);
+        fillViewsWithContent(0, minChars, false, false);
     }
 
     @Override protected void loadViews() {
@@ -59,40 +59,52 @@ public class ProgressTextLengthBar extends TextLengthBar {
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
     }
 
-    @Override protected void fillViewsWithContent(int count, int minChars) {
-        super.fillViewsWithContent(count, minChars);
+    @Override
+    protected void fillViewsWithContent(int count, int minChars, boolean isNewState, boolean isGoingToPreviousState) {
+        super.fillViewsWithContent(count, minChars, isNewState, isGoingToPreviousState);
+        setLimitStatesProgress(isNewState, isGoingToPreviousState);
+
         setProgressAnimate((int) calculateProgress(count, minChars));
+
         if (progressBarColor > 0) {
             setProgressBarColor(ContextCompat.getColor(getContext(), progressBarColor));
         }
     }
 
-    @Override protected void updateContentWithState(int count, boolean isNewState) {
-        super.updateContentWithState(count, isNewState);
+    @Override protected void updateContentWithState(int count, boolean isNewState, boolean isGoingToPreviousState) {
+        super.updateContentWithState(count, isNewState, isGoingToPreviousState);
         if (currentState != null) {
-            if(isNewState) {
-                progressBar.setProgress(0);
-            }
             setProgressBarColor(currentState.getProgressBarColor());
-            setProgressAnimate((int) calculateProgress(calculateRealCount(count),
-                currentState.getCharsLimit() - calculateStateTotal()));
+
+            setLimitStatesProgress(isNewState, isGoingToPreviousState);
+
+            int progress = (int) calculateProgress(count - calculateRealPercent(), calculateRealPercent());
+
+            setProgressAnimate(progress);
         }
     }
 
-    private int calculateRealCount(int count) {
-        int currentStateIndex = states.indexOf(currentState);
-        if (currentStateIndex > 0) {
-            return count - currentState.getCharsLimit();
-        }
-        return count - minChars;
+    private float calculateProgress(int count, int total) {
+        return ((float) count / total) * 100;
     }
 
-    private int calculateStateTotal() {
-        int currentStateIndex = states.indexOf(currentState);
-        if (currentStateIndex > 0) {
-            return states.get(currentStateIndex - 1).getCharsLimit();
+    private void setLimitStatesProgress(boolean isNewState, boolean isGoingToPreviousState) {
+        if (isNewState) {
+            progressBar.setProgress(isGoingToPreviousState ? 96 : 0);
         }
-        return minChars;
+    }
+
+    private int calculateRealPercent() {
+        int currentStateIndex = states.indexOf(currentState);
+        int accumulated = minChars;
+
+        if(currentStateIndex > 0) {
+            for (int index = 0; index < currentStateIndex; index++) {
+                accumulated += states.get(index).getCharsLimit();
+            }
+        }
+
+        return currentState.getCharsLimit() - accumulated;
     }
 
     private void setProgressBarColor(int color) {
@@ -104,10 +116,6 @@ public class ProgressTextLengthBar extends TextLengthBar {
             drawable.setDrawableByLayerId(android.R.id.progress, background);
             progressBar.setProgressDrawable(drawable);
         }
-    }
-
-    private float calculateProgress(int count, int total) {
-        return ((float) count / total) * 100;
     }
 
     private void setProgressAnimate(int progress) {

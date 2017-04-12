@@ -60,6 +60,7 @@ public class TextLengthBar extends RelativeLayout {
     protected TextLengthBarState currentState;
     protected int minChars;
     protected int progressBarColor;
+    private boolean isGoingFromInitialState = true;
 
     public TextLengthBar(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -105,7 +106,7 @@ public class TextLengthBar extends RelativeLayout {
     protected void setupViews() {
         inflate(getContext(), R.layout.text_length_bar, this);
         loadViews();
-        fillViewsWithContent(0, minChars);
+        fillViewsWithContent(0, minChars, false, false);
     }
 
     protected void loadViews() {
@@ -114,7 +115,7 @@ public class TextLengthBar extends RelativeLayout {
         rootView = (RelativeLayout) findViewById(R.id.root_view);
     }
 
-    protected void fillViewsWithContent(int count, int minChars) {
+    protected void fillViewsWithContent(int count, int minChars, boolean isNewState, boolean isGoingToPreviousState) {
         manageIconState();
 
         message.setText(content.replace("%d", String.valueOf(minChars - count)));
@@ -137,7 +138,7 @@ public class TextLengthBar extends RelativeLayout {
         }
     }
 
-    protected void updateContentWithState(int count, boolean isNewState) {
+    protected void updateContentWithState(int count, boolean isNewState, boolean isGoingToPreviousState) {
         if (currentState != null) {
             int minCharsState = currentState.getCharsLimit();
             message.setText(currentState.getText().toString().replace("%d", String.valueOf(minCharsState - count)));
@@ -160,18 +161,18 @@ public class TextLengthBar extends RelativeLayout {
     }
 
     private TextLengthBarState getCurrentState(int count) {
-        for (int i = 0; states != null && i < states.size(); i++) {
-            if (i == 0) {
+        for (int index = 0; states != null && index < states.size(); index++) {
+            if (index == 0) {
                 if (count >= minChars && count < states.get(0).getCharsLimit()) {
                     return states.get(0);
                 }
-            } else if (i > 0 && i < (states.size() - 1)) {
-                if (count >= states.get(i - 1).getCharsLimit() && count < states.get(i).getCharsLimit()) {
-                    return states.get(i);
+            } else if (index > 0 && index < (states.size() - 1)) {
+                if (count >= states.get(index - 1).getCharsLimit() && count < states.get(index).getCharsLimit()) {
+                    return states.get(index);
                 }
             } else {
-                if (count >= states.get(i - 1).getCharsLimit()) {
-                    return states.get(i);
+                if (count >= states.get(index - 1).getCharsLimit()) {
+                    return states.get(index);
                 }
             }
         }
@@ -187,15 +188,19 @@ public class TextLengthBar extends RelativeLayout {
             }
 
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-                int textLength = editText.getText().length();
+                int textLength = editText.getText().toString().length();
 
+                boolean isGoingToPreviousState = before > count;
                 if (textLength >= minChars) {
+                    isGoingFromInitialState = false;
                     TextLengthBarState newState = getCurrentState(textLength);
-                    boolean isNewState = newState.equals(currentState);
+                    boolean isNewState = !newState.equals(currentState);
                     currentState = newState;
-                    updateContentWithState(textLength, isNewState);
+                    updateContentWithState(textLength, isNewState, isGoingToPreviousState);
                 } else {
-                    fillViewsWithContent(textLength, minChars);
+                    fillViewsWithContent(textLength, minChars, currentState != null && !isGoingFromInitialState,
+                        isGoingToPreviousState);
+                    isGoingFromInitialState = true;
                 }
             }
 
@@ -228,7 +233,7 @@ public class TextLengthBar extends RelativeLayout {
     public void setState(@NonNull TextLengthBarState state) {
         states = new ArrayList<>();
         states.add(state);
-        updateContentWithState(0, false);
+        updateContentWithState(0, false, false);
     }
 
     public void setStates(@NonNull List<TextLengthBarState> states) {
